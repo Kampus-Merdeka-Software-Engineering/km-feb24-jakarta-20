@@ -15,8 +15,9 @@ body {
 .sidebar {
   padding: 0;
   margin: 0;
-  width: 200px;
+  width: 280px;
   min-height: 100%;
+  font-size: 24px;
   background-color: #fff;
 }
 
@@ -66,7 +67,7 @@ body {
   cursor: pointer;
 }
 
-.tambah-pesanan .tmbhBtn a{
+.tambah-pesanan .tmbhBtn a {
   text-decoration: none;
   color: black;
 }
@@ -85,16 +86,60 @@ body {
   margin-left: 50px;
 }
 
-.content .statistik-transaksi .card .card-title{
+.row::after {
+  display: table;
+  clear: both;
+}
+
+.col {
+  float: left;
+  box-sizing: border-box;
+}
+
+/* Small Devices */
+@media (max-width: 768px) {
+  .col {
+    width: 100%;
+  }
+}
+
+/* Medium Devices */
+@media (min-width: 768px) {
+  .col {
+    width: 50%;
+  }
+}
+
+/* Large Devices */
+@media (min-width: 1220px) {
+  .col {
+    width: 25%;
+  }
+}
+
+.card {
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.card-body {
+  padding-left: 15px;
+}
+
+.content .statistik-transaksi .card .card-title {
   font-size: 20px;
-  width: 170px;
+  width: 200px;
 }
 
-.content .statistik-transaksi .card .card-link-div{
+.content .statistik-transaksi .card .card-link-div {
   display: flex;
-  justify-content: space-between;
 }
 
-.content .statistik-transaksi .card .card-subtitle{
+.card .card-link-div .card-link {
+  margin-left: 15px;
+}
+
+.content .statistik-transaksi .card .card-subtitle {
   font-size: 14px;
 }
