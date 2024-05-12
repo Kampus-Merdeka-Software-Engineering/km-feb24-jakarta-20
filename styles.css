@@ -19,6 +19,8 @@ body {
   min-height: 100%;
   font-size: 24px;
   background-color: #fff;
+  transition: transform 0.3s ease;
+  position: fixed;
 }
 
 .sidebar ul {
@@ -51,11 +53,15 @@ body {
   border-radius: 10px;
 }
 
+.tambah-pesanan div span {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
 .tambah-pesanan button {
   display: flex;
   gap: 13px;
   font-size: 17px;
-  padding-top: 40px;
   border-radius: 10px;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -75,6 +81,7 @@ body {
 .sidebar .logout {
   position: absolute;
   left: 40px;
+  bottom: 15px;
   font-size: 18px;
   padding: 10px;
   background: none;
@@ -83,7 +90,7 @@ body {
 }
 
 .content {
-  margin-left: 50px;
+  margin-left: 330px;
 }
 
 .row::after {
@@ -97,23 +104,50 @@ body {
 }
 
 /* Small Devices */
-@media (max-width: 768px) {
+@media (max-width: 750px) {
   .col {
     width: 100%;
   }
 }
 
 /* Medium Devices */
-@media (min-width: 768px) {
+@media (min-width: 860px) {
   .col {
     width: 50%;
   }
 }
 
 /* Large Devices */
-@media (min-width: 1220px) {
+@media (min-width: 1300px) {
   .col {
     width: 25%;
+  }
+}
+
+@media (max-width: 660px) {
+  .content {
+    margin: 0 200px;
+    justify-content: center;
+    flex-grow: 1;
+  }
+  .sidebar {
+    transform: translateX(-100%);
+  }
+  .sidebar ul:nth-child(1) {
+    margin-top: 60px;
+  }
+  .hamburger {
+    position: fixed;
+    display: block;
+    z-index: 99;
+    font-size: 24px;
+    margin-left: 30px;
+  }
+  .hamburger.active .hamburger-icon {
+    background-color: transparent;
+  }
+  .hamburger.active + .sidebar {
+    transform: translateX(0);
   }
 }
 
@@ -142,4 +176,19 @@ body {
 
 .content .statistik-transaksi .card .card-subtitle {
   font-size: 14px;
+}
+
+.hamburger {
+  display: block;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.hamburger-icon {
+  width: 20px;
+  height: 3px;
+  display: block;
+  position: relative;
 }
