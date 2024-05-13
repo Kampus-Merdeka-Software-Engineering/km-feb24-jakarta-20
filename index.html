@@ -12,6 +12,15 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+
+    <!-- Chart Js CDN -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js"
+      integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.0/dist/chart.umd.js"></script>
   </head>
   <body>
     <div class="container">
@@ -68,6 +77,25 @@
           <h3>Statistik Transaksi</h3>
           <div class="detail-statistik-transaksi" style="margin: 20px 0">
             <div class="row"></div>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper">
+        <div class="first-wrapper">
+          <div class="chart-wrapper-1">
+            <canvas id="myChart"></canvas>
+          </div>
+          <div class="transaction-qty">
+            <span>transaction qty</span>
+          </div>
+        </div>
+
+        <div class="second-wrapper">
+          <div class="product-type-transaction">
+            <span>product type transaction</span>
+          </div>
+          <div class="chart-wrapper-2">
+            <canvas id="myChart1"></canvas>
           </div>
         </div>
       </div>

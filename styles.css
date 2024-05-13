@@ -7,6 +7,8 @@ body {
 
 .container {
   display: flex;
+  flex-direction: column;
+  gap: 50px;
   min-height: 100vh;
   margin-left: 0 !important;
   margin-right: 0 !important;
@@ -124,6 +126,21 @@ body {
   }
 }
 
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.hamburger-icon {
+  width: 20px;
+  height: 3px;
+  display: block;
+  position: relative;
+}
+
 @media (max-width: 660px) {
   .content {
     margin: 0 200px;
@@ -178,17 +195,44 @@ body {
   font-size: 14px;
 }
 
-.hamburger {
-  display: block;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 10px;
+.first-wrapper,
+.second-wrapper {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 320px;
 }
 
-.hamburger-icon {
-  width: 20px;
-  height: 3px;
-  display: block;
-  position: relative;
+.chart-wrapper-1 {
+  display: flex;
+  width: 700px;
+  height: 300px;
+}
+
+.chart-wrapper-2 {
+  display: flex;
+  width: 400px;
+  height: 400px;
+}
+
+.chart-wrapper-1,
+.chart-wrapper-2 {
+  background-color: white;
+  border-radius: 10px;
+  padding: 0px 10px;
+}
+
+.first-wrapper .transaction-qty {
+  width: 100%;
+  height: 300px;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.second-wrapper .product-type-transaction {
+  width: 620px;
+  background-color: white;
+  height: 400px;
+  border-radius: 10px;
 }
