@@ -2,11 +2,13 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: #f2f2f2;
+  background-color: #f6f6f6;
 }
 
 .container {
   display: flex;
+  flex-direction: column;
+  gap: 50px;
   min-height: 100vh;
   margin-left: 0 !important;
   margin-right: 0 !important;
@@ -33,7 +35,7 @@ body {
 }
 
 .highlight {
-  background-color: blue;
+  background-color: #967259;
   color: white;
   padding: 5px 10px;
   border-radius: 10px;
@@ -93,6 +95,22 @@ body {
   margin-left: 330px;
 }
 
+.content .profile {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.profile div {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile div .name {
+  font-size: 24px;
+}
+
 .row::after {
   display: table;
   clear: both;
@@ -122,6 +140,21 @@ body {
   .col {
     width: 25%;
   }
+}
+
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.hamburger-icon {
+  width: 20px;
+  height: 3px;
+  display: block;
+  position: relative;
 }
 
 @media (max-width: 660px) {
@@ -161,6 +194,10 @@ body {
   padding-left: 15px;
 }
 
+.content .statistik-transaksi div .filter ul li {
+  cursor: pointer;
+}
+
 .content .statistik-transaksi .card .card-title {
   font-size: 20px;
   width: 200px;
@@ -178,17 +215,86 @@ body {
   font-size: 14px;
 }
 
-.hamburger {
-  display: block;
-  background: none;
-  border: none;
-  cursor: pointer;
+.container .wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 20px 20px 40px 0;
+}
+
+.first-wrapper,
+.second-wrapper {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 320px;
+}
+
+.chart-wrapper-1 {
+  display: flex;
+  width: 700px;
+  height: 300px;
+}
+
+.chart-wrapper-2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 400px;
+  height: 400px;
+}
+
+.chart-wrapper-1,
+.chart-wrapper-2 {
+  background-color: white;
+  border-radius: 10px;
+  padding: 0px 10px;
+}
+
+.first-wrapper .transaction-qty {
+  width: 100%;
+  height: 300px;
+  border-radius: 10px;
+  background-color: white;
+  text-align: left;
+  padding: 0px 20px;
+}
+
+.transaction-qty table {
+  text-align: center;
+}
+.transaction-qty tr th,
+.transaction-qty tr td {
   padding: 10px;
 }
 
-.hamburger-icon {
-  width: 20px;
-  height: 3px;
-  display: block;
-  position: relative;
+.transaction-qty table tr th:nth-child(1),
+.transaction-qty table tr td:nth-child(1) {
+  text-align: left;
+}
+
+.second-wrapper .product-type-transaction {
+  width: 620px;
+  background-color: white;
+  height: 400px;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.product-type-transaction table {
+  text-align: center;
+}
+.product-type-transaction table tr th,
+.product-type-transaction table tr td {
+  padding: 10px;
+}
+
+.product-type-transaction table tr td{
+  border-bottom: 1px solid black;
+}
+
+.product-type-transaction table tr th:nth-child(1),
+.product-type-transaction table tr td:nth-child(1) {
+  text-align: left;
 }

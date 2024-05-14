@@ -10,6 +10,70 @@ function highlightContainer() {
   });
 }
 
+var ctx = document.getElementById("myChart").getContext("2d");
+var myChart = new Chart(ctx, {
+  type: "line",
+  data: {
+    labels: [
+      "JAN",
+      "FEB",
+      "MAR",
+      "APR",
+      "MAY",
+      "JUN",
+      "JUL",
+      "AUG",
+      "SEP",
+      "OCT",
+      "NOV",
+      "DEC",
+    ],
+    datasets: [
+      {
+        label: "My First Dataset",
+        data: [65, 59, 80, 81, 56, 55, 40, 99, 103, 100, 120, 100],
+        borderColor: "rgb(75, 192, 192)",
+        tension: 0.5,
+      },
+    ],
+  },
+  options: {
+    elements: {
+      point: {
+        radius: 0,
+      },
+    },
+    scales: {
+      y: {
+        position: "right",
+      },
+    },
+  },
+});
+
+var ctx1 = document.getElementById("myChart1").getContext("2d");
+var myChart1 = new Chart(ctx1, {
+  type: "pie",
+  data: {
+    labels: ["Lower Manhattan", "Hell's Kitchen", "Astoria"],
+    datasets: [
+      {
+        data: [70, 10, 6],
+        borderColor: ["#967259", "#634832", "#DDAA86"],
+        backgroundColor: ["#967259", "#634832", "#DDAA86"],
+        borderWidth: 2,
+      },
+    ],
+  },
+  options: {
+    plugins: {
+      legend: {
+        position: "right",
+      },
+    },
+  },
+});
+
 highlightContainer();
 
 const listStatistikTransaksi = [
@@ -19,7 +83,7 @@ const listStatistikTransaksi = [
     type: "qty",
     value: 10,
     // in hour
-    updated:1
+    updated: 1,
   },
   {
     id: "2",
@@ -27,7 +91,7 @@ const listStatistikTransaksi = [
     type: "qty",
     value: 2,
     // in hour
-    updated:2
+    updated: 2,
   },
   ,
   {
@@ -36,7 +100,7 @@ const listStatistikTransaksi = [
     type: "transaction",
     value: 49999,
     // in hour
-    updated:4
+    updated: 4,
   },
   {
     id: "4",
@@ -44,7 +108,7 @@ const listStatistikTransaksi = [
     type: "transaction",
     value: 39999,
     // in hour
-    updated:3
+    updated: 3,
   },
 ];
 
@@ -122,6 +186,29 @@ const insertDashboardStatistikTransaski = () => {
 
 insertDashboardStatistikTransaski();
 
-document.querySelector('.hamburger').addEventListener('click', function() {
-  this.classList.toggle('active');
+document.querySelector(".hamburger").addEventListener("click", function () {
+  this.classList.toggle("active");
 });
+let retrievedData;
+
+const loadData = async () => {
+  try {
+    const response = await fetch("./data.json");
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+async function fetchData() {
+  try {
+    const data = await loadData();
+    retrievedData = data;
+    console.log(retrievedData);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
