@@ -30,7 +30,7 @@
       <div class="sidebar">
         <ul>
           <li class="sidebars sidebars-1">
-            <span>Dashboard</span>
+            <span>Home</span>
           </li>
           <li class="sidebars sidebars-2">
             <i class="fa-solid fa-mug-hot"></i>
@@ -48,9 +48,9 @@
             <i class="fa-solid fa-store"></i>
             <span>Store</span>
           </li>
-          <li class="sidebars sidebars-1">
+          <li class="sidebars sidebars-1 highlight">
             <i class="fa-solid fa-gear"></i>
-            <span>Admin</span>
+            <span>Dashboard</span>
           </li>
         </ul>
 
@@ -72,9 +72,34 @@
       </div>
 
       <div class="content">
-        <h1>Admin</h1>
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          "
+        >
+          <h1>Admin</h1>
+          <div class="profile">
+            <i class="fa-solid fa-bell fa-xl"></i>
+            <div>
+              <span class="name">Team 20</span>
+              <span class="position">Admin</span>
+            </div>
+            <img src="#" alt="profile" />
+          </div>
+        </div>
         <div class="statistik-transaksi">
-          <h3>Statistik Transaksi</h3>
+          <div>
+            <h2>Statistik Transaksi</h2>
+            <div style="display: flex; align-items: center" class="filter">
+              <h3>Filter</h3>
+              <ul style="display: flex; list-style-type: none; gap: 15px">
+                <li>Store Location</li>
+                <li>Date Range</li>
+              </ul>
+            </div>
+          </div>
           <div class="detail-statistik-transaksi" style="margin: 20px 0">
             <div class="row"></div>
           </div>
@@ -82,20 +107,73 @@
       </div>
       <div class="wrapper">
         <div class="first-wrapper">
-          <div class="chart-wrapper-1">
-            <canvas id="myChart"></canvas>
-          </div>
-          <div class="transaction-qty">
-            <span>transaction qty</span>
+          <div
+            class="row"
+            style="display: flex; justify-content: space-between"
+          >
+            <div class="col">
+              <div class="chart-wrapper-1">
+                <canvas id="myChart"></canvas>
+              </div>
+            </div>
+            <div class="col">
+              <div class="transaction-qty">
+                <h3>Average Qty and Value</h3>
+                <h3>Per Store</h3>
+                <table>
+                  <tr>
+                    <th>Store Loc</th>
+                    <th>Transaction Qty</th>
+                    <th>Transaction Value</th>
+                  </tr>
+                  <tr>
+                    <td>Hell's Kitchen</td>
+                    <td>30220</td>
+                    <td>91222.25</td>
+                  </tr>
+                  <tr>
+                    <td>Astoria</td>
+                    <td>30220</td>
+                    <td>91222.25</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
-
         <div class="second-wrapper">
-          <div class="product-type-transaction">
-            <span>product type transaction</span>
-          </div>
-          <div class="chart-wrapper-2">
-            <canvas id="myChart1"></canvas>
+          <div
+            class="row"
+            style="display: flex; justify-content: space-between"
+          >
+            <div class="col">
+              <div class="product-type-transaction">
+                <h3>Product Type</h3>
+                <h3>By Transaction Quantity and Value</h3>
+                <table>
+                  <tr>
+                    <th>Store Loc</th>
+                    <th>Transaction Qty</th>
+                    <th>Transaction Value</th>
+                  </tr>
+                  <tr>
+                    <td>Hell's Kitchen</td>
+                    <td>30220</td>
+                    <td>91222.25</td>
+                  </tr>
+                  <tr>
+                    <td>Astoria</td>
+                    <td>30220</td>
+                    <td>91222.25</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div class="col">
+              <div class="chart-wrapper-2" style="width: 100%">
+                <canvas id="myChart1" width="500px"></canvas>
+              </div>
+            </div>
           </div>
         </div>
       </div>

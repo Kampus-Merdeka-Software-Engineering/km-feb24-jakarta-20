@@ -189,3 +189,26 @@ insertDashboardStatistikTransaski();
 document.querySelector(".hamburger").addEventListener("click", function () {
   this.classList.toggle("active");
 });
+let retrievedData;
+
+const loadData = async () => {
+  try {
+    const response = await fetch("./data.json");
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+async function fetchData() {
+  try {
+    const data = await loadData();
+    retrievedData = data;
+    console.log(retrievedData);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
