@@ -182,7 +182,6 @@ async function fetchData() {
       // Create card element
       var card = document.createElement("div");
       card.classList.add("card");
-      card.style.width = "15rem";
 
       // Create card body
       var cardBody = document.createElement("div");
@@ -287,6 +286,7 @@ async function fetchData() {
             radius: 0,
           },
         },
+        maintainAspectRatio: false,
         scales: {
           y: {
             position: "right",
