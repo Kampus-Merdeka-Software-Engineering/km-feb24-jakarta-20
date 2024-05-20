@@ -95,8 +95,50 @@
             <div style="display: flex; align-items: center" class="filter">
               <h3>Filter</h3>
               <ul style="display: flex; list-style-type: none; gap: 15px">
-                <li>Store Location</li>
-                <li>Date Range</li>
+                <div>
+                  <li>Store Location</li>
+                  <form
+                    action=""
+                    style="display: flex; flex-direction: column"
+                    id="myForm"
+                  >
+                    <label for="kitchen">
+                      <input type="radio" name="store" id="kitchen" value="8" />
+                      Hell's Kitchen
+                    </label>
+                    <label for="manhattan">
+                      <input
+                        type="radio"
+                        name="store"
+                        id="manhattan"
+                        value="5"
+                      />
+                      Lower Manhattan
+                    </label>
+                    <label for="astoria">
+                      <input type="radio" name="store" id="astoria" value="3" />
+                      Astoria
+                    </label>
+                    <br />
+                    <div style="display: flex; flex-direction: column">
+                      <span>Date Range</span>
+                      <input
+                        type="date"
+                        name="startDate"
+                        min="2023-01-01"
+                        max="2023-06-30"
+                      />
+                      <input
+                        type="date"
+                        name="endDate"
+                        min="2023-01-01"
+                        max="2023-06-30"
+                      />
+                    </div>
+
+                    <button type="submit">Filter</button>
+                  </form>
+                </div>
               </ul>
             </div>
           </div>
@@ -123,16 +165,6 @@
                     <th>Transaction Qty</th>
                     <th>Transaction Value</th>
                   </tr>
-                  <tr>
-                    <td>Hell's Kitchen</td>
-                    <td>30220</td>
-                    <td>91222.25</td>
-                  </tr>
-                  <tr>
-                    <td>Astoria</td>
-                    <td>30220</td>
-                    <td>91222.25</td>
-                  </tr>
                 </table>
               </div>
             </div>
@@ -149,16 +181,6 @@
                     <th>Store Loc</th>
                     <th>Transaction Qty</th>
                     <th>Transaction Value</th>
-                  </tr>
-                  <tr>
-                    <td>Hell's Kitchen</td>
-                    <td>30220</td>
-                    <td>91222.25</td>
-                  </tr>
-                  <tr>
-                    <td>Astoria</td>
-                    <td>30220</td>
-                    <td>91222.25</td>
                   </tr>
                 </table>
               </div>

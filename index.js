@@ -10,6 +10,20 @@ function highlightContainer() {
   });
 }
 
+function convertDate(originalDate) {
+  // Parse the original date
+  const dateParts = originalDate.split("-");
+  console.log(dateParts);
+  const year = dateParts[0];
+  const month = dateParts[1];
+  const day = dateParts[2];
+
+  // Convert to the target format DD/MM/YYYY
+  const newDate = `${month}/${day}/${year}`;
+  console.log(newDate);
+  return newDate;
+}
+
 // ###############
 // ###############
 // ###############
@@ -43,6 +57,9 @@ async function fetchData() {
 
     // Id Store Dari Keseluruhan Data
     const uniqueStoreIds = [...new Set(retrievedData.map((v) => v.store_id))];
+    // 3 (Astoria)
+    // 5 (Lower Manhattan)
+    // 8 (Hell's Kitchen)
 
     // Lokasi Store
     const uniqueStoreLocation = [
@@ -83,10 +100,31 @@ async function fetchData() {
         };
       });
 
+    const form = document.getElementById("myForm");
+    form.addEventListener("submit", (e) => {
+      const data = new FormData(e.target);
+      const store = data.get("store");
+      const startDate = data.get("startDate");
+      const endDate = data.get("endDate");
+      localStorage.setItem("storeId", store);
+      localStorage.setItem("startDate", convertDate(startDate));
+      localStorage.setItem("endDate", convertDate(endDate));
+    });
+    let storeId = localStorage.getItem("storeId");
+    let startDate = localStorage.getItem("startDate");
+    let endDate = localStorage.getItem("endDate ");
+    
     // Average Quantity Sales Per Month
     const monthlyTotalQtys = {};
     const uniqueMonths = new Set();
-    retrievedData.forEach((sale) => {
+    const filteredData = retrievedData.filter(
+      (v) =>
+        v.store_id == storeId &&
+        v.transaction_date >= startDate &&
+        v.transaction_date <= endDate
+    );
+
+    filteredData.forEach((sale) => {
       const dateParts = sale.transaction_date.split("/");
       const month = `${dateParts[2]}-${dateParts[0]}`;
       uniqueMonths.add(month);
@@ -102,28 +140,28 @@ async function fetchData() {
     const averageQtyPerMonth = totalQtys / totalMonths;
 
     // Average Quantity Per Transaction
-    const totalQuantity = retrievedData.reduce(
+    const totalQuantity = filteredData.reduce(
       (acc, curr) => acc + curr.transaction_qty,
       0
     );
-    const totalTransactionsForAverage = retrievedData.length;
+    const totalTransactionsForAverage = filteredData.length;
     const averageQuantityPerTransaction =
       totalQuantity / totalTransactionsForAverage;
 
     // Average Spending Per Transaction
-    const totalSpending = retrievedData.reduce(
+    const totalSpending = filteredData.reduce(
       (acc, curr) => acc + curr.transaction_qty * curr.unit_price,
       0
     );
-    const totalTransactions = retrievedData.length;
+    const totalTransactions = filteredData.length;
     const averageSpendingPerTransaction = totalSpending / totalTransactions;
 
     // Average Spending Per Transaction Quantity
-    const totalSpendingForPerTransactionQty = retrievedData.reduce(
+    const totalSpendingForPerTransactionQty = filteredData.reduce(
       (acc, curr) => acc + curr.transaction_qty * curr.unit_price,
       0
     );
-    const totalQuantityItemSold = retrievedData.reduce(
+    const totalQuantityItemSold = filteredData.reduce(
       (acc, curr) => acc + curr.transaction_qty,
       0
     );
@@ -244,7 +282,7 @@ async function fetchData() {
     // ###############
     // Calculation For Chart
     // Average qty per Transaction Per Month
-    const salesByMonth = retrievedData.reduce((acc, curr) => {
+    const salesByMonth = filteredData.reduce((acc, curr) => {
       const dateParts = curr.transaction_date.split("/");
       const month = `${dateParts[2]}-${dateParts[0]}`;
       acc[month] = acc[month] || [];
@@ -252,6 +290,7 @@ async function fetchData() {
       return acc;
     }, {});
 
+    // Average Quantity Per Transaction Per Month
     const averageQuantityPerTransactionPerMonth = Object.keys(salesByMonth).map(
       (month) => {
         const totalQuantity = salesByMonth[month].reduce(
@@ -262,6 +301,148 @@ async function fetchData() {
         return { month, averageQuantity: totalQuantity / totalTransactions };
       }
     );
+
+    // Average Quantity Per Transaction Per Store
+    const storeTransactionMap = {};
+    const averageQuantityPerTransactionPerStore = [];
+
+    // Group data by store and transaction
+    retrievedData.forEach(
+      ({ store_location, transaction_id, transaction_qty }) => {
+        if (!storeTransactionMap[store_location]) {
+          storeTransactionMap[store_location] = {};
+        }
+        if (!storeTransactionMap[store_location][transaction_id]) {
+          storeTransactionMap[store_location][transaction_id] = 0;
+        }
+        storeTransactionMap[store_location][transaction_id] += transaction_qty;
+      }
+    );
+
+    // Calculate the average quantity per transaction per store
+    for (const store in storeTransactionMap) {
+      const transactions = storeTransactionMap[store];
+      const transactionQuantities = Object.values(transactions);
+      const totalQuantity = transactionQuantities.reduce(
+        (acc, qty) => acc + qty,
+        0
+      );
+      const averageQuantity = totalQuantity / transactionQuantities.length;
+      averageQuantityPerTransactionPerStore.push({ store, averageQuantity });
+    }
+
+    // Average Quantity and Value per Store
+    const storeDataMap = {};
+    filteredData.forEach(({ store_location, transaction_qty, unit_price }) => {
+      if (!storeDataMap[store_location]) {
+        storeDataMap[store_location] = {
+          totalQuantity: 0,
+          totalValue: 0,
+          transactionCount: 0,
+        };
+      }
+      storeDataMap[store_location].totalQuantity += transaction_qty;
+      storeDataMap[store_location].totalValue += unit_price;
+      storeDataMap[store_location].transactionCount += 1;
+    });
+
+    const averageQuantityAndValuePerStore = [];
+    for (const store in storeDataMap) {
+      const { totalQuantity, totalValue, transactionCount } =
+        storeDataMap[store];
+      const averageQuantity = totalQuantity / transactionCount;
+      const averageValue = totalValue / transactionCount;
+      averageQuantityAndValuePerStore.push({
+        store,
+        averageQuantity,
+        averageValue,
+      });
+    }
+
+    const transactionQtyDetails = document.querySelector(
+      ".col .transaction-qty table"
+    );
+    averageQuantityAndValuePerStore.forEach((v) => {
+      var tableRow = document.createElement("tr");
+
+      var tdStoreName = document.createElement("td");
+      tdStoreName.textContent = v.store.toUpperCase();
+
+      var tdAeverageQty = document.createElement("td");
+      tdAeverageQty.textContent = Math.round(v.averageQuantity * 100) / 100;
+
+      var tdAverageValue = document.createElement("td");
+      tdAverageValue.textContent = (
+        Math.round(v.averageValue * 100) / 100
+      ).toLocaleString("en-us", {
+        style: "currency",
+        currency: "USD",
+      });
+
+      tableRow.appendChild(tdStoreName);
+      tableRow.appendChild(tdAeverageQty);
+      tableRow.appendChild(tdAverageValue);
+      transactionQtyDetails.appendChild(tableRow);
+    });
+
+    // Product Type By Transaction Quantity and Value
+
+    // Group data by product type and transaction
+    const productTransactionMap = {};
+
+    filteredData.forEach(({ product_type, transaction_qty, unit_price }) => {
+      const lowerCaseProductType = product_type.toLowerCase();
+      if (
+        lowerCaseProductType.includes("coffee") ||
+        lowerCaseProductType.includes("espresso")
+      ) {
+        if (!productTransactionMap[lowerCaseProductType]) {
+          productTransactionMap[lowerCaseProductType] = {
+            totalQuantity: 0,
+            totalValue: 0,
+          };
+        }
+        productTransactionMap[lowerCaseProductType].totalQuantity +=
+          transaction_qty;
+        productTransactionMap[lowerCaseProductType].totalValue += unit_price;
+      }
+    });
+
+    // Step 2: Transform the result into an array
+    const productTypeArray = Object.keys(productTransactionMap).map(
+      (productType) => ({
+        productType,
+        totalQuantity: productTransactionMap[productType].totalQuantity,
+        totalValue: productTransactionMap[productType].totalValue,
+      })
+    );
+
+    const productTypeTransactionDetails = document.querySelector(
+      ".col .product-type-transaction table"
+    );
+    productTypeArray.forEach((v) => {
+      const tableRow = document.createElement("tr");
+
+      var tdStoreName = document.createElement("td");
+      tdStoreName.textContent = v.productType.toUpperCase();
+
+      var tdTransactionQty = document.createElement("td");
+      tdTransactionQty.textContent = Math.round(v.totalQuantity * 100) / 100;
+
+      var tdTransactionValue = document.createElement("td");
+      tdTransactionValue.textContent = (
+        Math.round(v.totalValue * 100) / 100
+      ).toLocaleString("en-us", {
+        style: "currency",
+        currency: "USD",
+      });
+
+      tableRow.appendChild(tdStoreName);
+      tableRow.appendChild(tdTransactionQty);
+      tableRow.appendChild(tdTransactionValue);
+      productTypeTransactionDetails.appendChild(tableRow);
+    });
+    //
 
     // Chart Js
     var ctx = document.getElementById("myChart").getContext("2d");
@@ -302,7 +483,9 @@ async function fetchData() {
         labels: ["Lower Manhattan", "Hell's Kitchen", "Astoria"],
         datasets: [
           {
-            data: [70, 10, 6],
+            data: averageQuantityPerTransactionPerStore.map(
+              (v) => v.averageQuantity
+            ),
             borderColor: ["#967259", "#634832", "#DDAA86"],
             backgroundColor: ["#967259", "#634832", "#DDAA86"],
             borderWidth: 2,
