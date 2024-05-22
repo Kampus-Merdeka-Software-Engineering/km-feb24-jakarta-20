@@ -13,14 +13,12 @@ function highlightContainer() {
 function convertDate(originalDate) {
   // Parse the original date
   const dateParts = originalDate.split("-");
-  console.log(dateParts);
   const year = dateParts[0];
-  const month = dateParts[1];
-  const day = dateParts[2];
+  const month = dateParts[1] - 1;
+  const day = dateParts[2] > 10 ? dateParts[2] : dateParts[2] - 1;
 
   // Convert to the target format DD/MM/YYYY
-  const newDate = `${month}/${day}/${year}`;
-  console.log(newDate);
+  const newDate = `${month + 1}/${day > 10 ? day : day + 1}/${year}`;
   return newDate;
 }
 
@@ -103,17 +101,24 @@ async function fetchData() {
     const form = document.getElementById("myForm");
     form.addEventListener("submit", (e) => {
       const data = new FormData(e.target);
-      const store = data.get("store");
-      const startDate = data.get("startDate");
-      const endDate = data.get("endDate");
+      const store = data.get("store") == null ? 8 : data.get("store");
+      const startDate =
+        data.get("startDate") == null
+          ? new Date("2023-1-1")
+          : convertDate(data.get("startDate"));
+      const endDate =
+        data.get("endDate") == null
+          ? new Date("2023-6-30")
+          : convertDate(data.get("endDate"));
+
       localStorage.setItem("storeId", store);
-      localStorage.setItem("startDate", convertDate(startDate));
-      localStorage.setItem("endDate", convertDate(endDate));
+      localStorage.setItem("startDate", startDate);
+      localStorage.setItem("endDate", endDate);
     });
     let storeId = localStorage.getItem("storeId");
     let startDate = localStorage.getItem("startDate");
-    let endDate = localStorage.getItem("endDate ");
-    
+    let endDate = localStorage.getItem("endDate");
+
     // Average Quantity Sales Per Month
     const monthlyTotalQtys = {};
     const uniqueMonths = new Set();

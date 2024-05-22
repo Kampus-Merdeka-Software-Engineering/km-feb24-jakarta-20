@@ -96,29 +96,49 @@
               <h3>Filter</h3>
               <ul style="display: flex; list-style-type: none; gap: 15px">
                 <div>
-                  <li>Store Location</li>
                   <form
                     action=""
-                    style="display: flex; flex-direction: column"
+                    style="
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      gap: 50px;
+                      font-size: 24px;
+                    "
                     id="myForm"
                   >
-                    <label for="kitchen">
-                      <input type="radio" name="store" id="kitchen" value="8" />
-                      Hell's Kitchen
-                    </label>
-                    <label for="manhattan">
-                      <input
-                        type="radio"
-                        name="store"
-                        id="manhattan"
-                        value="5"
-                      />
-                      Lower Manhattan
-                    </label>
-                    <label for="astoria">
-                      <input type="radio" name="store" id="astoria" value="3" />
-                      Astoria
-                    </label>
+                    <div style="display: flex; flex-direction: column">
+                      <li>Store Location</li>
+
+                      <label for="kitchen">
+                        <input
+                          type="radio"
+                          name="store"
+                          id="kitchen"
+                          value="8"
+                          checked
+                        />
+                        Hell's Kitchen
+                      </label>
+                      <label for="manhattan">
+                        <input
+                          type="radio"
+                          name="store"
+                          id="manhattan"
+                          value="5"
+                        />
+                        Lower Manhattan
+                      </label>
+                      <label for="astoria">
+                        <input
+                          type="radio"
+                          name="store"
+                          id="astoria"
+                          value="3"
+                        />
+                        Astoria
+                      </label>
+                    </div>
                     <br />
                     <div style="display: flex; flex-direction: column">
                       <span>Date Range</span>
@@ -127,12 +147,14 @@
                         name="startDate"
                         min="2023-01-01"
                         max="2023-06-30"
+                        value="2023-01-01"
                       />
                       <input
                         type="date"
                         name="endDate"
                         min="2023-01-01"
                         max="2023-06-30"
+                        value="2023-06-30"
                       />
                     </div>
 
