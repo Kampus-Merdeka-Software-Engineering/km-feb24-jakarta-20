@@ -100,6 +100,7 @@ async function fetchData() {
 
     const form = document.getElementById("myForm");
     form.addEventListener("submit", (e) => {
+
       const data = new FormData(e.target);
       const store = data.get("store") == null ? 8 : data.get("store");
       const startDate =
