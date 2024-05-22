@@ -77,7 +77,6 @@
               style="display: flex; align-items: center; border-radius: 10px"
               class="filter"
             >
-              <h3 style="padding-left: 15px">Filter</h3>
               <ul style="display: flex; list-style-type: none; gap: 15px">
                 <div>
                   <form
@@ -91,7 +90,15 @@
                     "
                     id="myForm"
                   >
-                    <div style="display: flex; flex-direction: column">
+                    <div
+                      style="
+                        display: flex;
+                        flex-direction: row;
+                        gap: 20px;
+                        align-items: center;
+                        justify-content: center;
+                      "
+                    >
                       <li>Store Location</li>
                       <select
                         name="store"
@@ -107,13 +114,11 @@
                     <div
                       style="
                         display: flex;
-                        flex-direction: column;
-                        gap: 10px;
+                        gap: 20px;
                         align-items: center;
                         justify-content: center;
                       "
                     >
-                      <span>Date Range</span>
                       <label for="">
                         Start Date
                         <input
