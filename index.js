@@ -77,30 +77,8 @@ async function fetchData() {
       ),
     ];
 
-    // filter berdasarkan tanggal transaksi dan tipe kopi
-    const date1 = new Date("2023-01-01");
-    const date2 = new Date("2023-05-30");
-    const filterTransactionByDate = retrievedData
-      .filter((v) => {
-        const transactionDate = new Date(v.transaction_date);
-        return transactionDate >= date1 && transactionDate <= date2;
-      })
-      .filter(
-        (v) =>
-          v.product_type.toLowerCase().includes("coffee") ||
-          v.product_type.toLowerCase().includes("espresso")
-      )
-      .map((v) => {
-        return {
-          transactionDate: v.transaction_date,
-          productName: v.product_detail,
-          productType: v.product_type,
-        };
-      });
-
     const form = document.getElementById("myForm");
     form.addEventListener("submit", (e) => {
-
       const data = new FormData(e.target);
       const store = data.get("store") == null ? 8 : data.get("store");
       const startDate =
@@ -116,6 +94,9 @@ async function fetchData() {
       localStorage.setItem("startDate", startDate);
       localStorage.setItem("endDate", endDate);
     });
+
+    // endDate sampai bulan 6 karena yang product type coffee hanya ada
+    // sampai bulan 6
     let storeId = localStorage.getItem("storeId");
     let startDate = localStorage.getItem("startDate");
     let endDate = localStorage.getItem("endDate");
