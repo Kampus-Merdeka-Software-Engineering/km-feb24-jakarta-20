@@ -226,7 +226,7 @@ async function fetchData() {
           currency: "USD",
         });
       } else {
-        cardText.textContent = element.value + " (pcs) ";
+        cardText.textContent = Math.round(element.value) + " (pcs) ";
       }
 
       // Create card link div

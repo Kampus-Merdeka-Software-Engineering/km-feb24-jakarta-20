@@ -120,12 +120,14 @@ body {
 .col {
   float: left;
   box-sizing: border-box;
+  height: 100%;
 }
 
 /* Small Devices */
 @media (max-width: 850px) {
   .col {
     width: 100%;
+    height: 100%;
   }
 }
 
@@ -133,6 +135,7 @@ body {
 @media (min-width: 851px) {
   .col {
     width: 50%;
+    height: 100%;
   }
 }
 
@@ -140,6 +143,7 @@ body {
 @media (min-width: 1300px) {
   .col {
     width: 25%;
+    height: 100%;
   }
 }
 
@@ -211,7 +215,7 @@ body {
   padding-right: 15px;
   border-radius: 10px;
   background-color: white;
-  box-shadow: 5px 10px grey;
+  box-shadow: 5px 10px #000;
 }
 
 .content .statistik-transaksi div .filter ul li {
@@ -249,12 +253,13 @@ body {
   gap: 30px;
   align-items: center;
   margin-left: 320px;
+  height: 100%;
 }
 
 .chart-wrapper-1 {
   width: 50vw;
   height: 100%;
-  box-shadow: 5px 10px grey;
+  box-shadow: 5px 10px #634832;
 }
 
 .chart-wrapper-2 {
@@ -269,7 +274,7 @@ body {
   background-color: white;
   border-radius: 10px;
   padding: 0px 10px;
-  box-shadow: 5px 10px grey;
+  box-shadow: 5px 10px #634832;
 }
 
 .first-wrapper .transaction-qty {
@@ -279,11 +284,11 @@ body {
   background-color: white;
   text-align: left;
   padding: 0px 20px;
-  box-shadow: 5px 10px grey;
+  box-shadow: 5px 10px #634832;
 }
 
 .second-wrapper .row .col .product-type-transaction {
-  box-shadow: 5px 10px grey;
+  box-shadow: 5px 10px #634832;
 }
 
 @media only screen and (min-width: 1201px) {
@@ -293,6 +298,7 @@ body {
     justify-content: space-evenly;
     align-items: center;
     margin-left: 170px;
+    height: 100%;
   }
 
   .wrapper .first-wrapper .row {
@@ -308,12 +314,13 @@ body {
 
   .first-wrapper .row .col .chart-wrapper-1 {
     width: 570px;
-    height: 100%;
+    height: 230px;
   }
 
   .first-wrapper .row .col .transaction-qty {
+    padding: 10px;
     width: 300px;
-    height: 100%;
+    height: 220px;
   }
 
   .second-wrapper .row .col .product-type-transaction {
@@ -323,7 +330,7 @@ body {
 
   .second-wrapper .row .col .chart-wrapper-2 {
     width: 300px;
-    height: 100%;
+    height: 420px;
   }
 }
 
@@ -343,7 +350,6 @@ body {
 
   .second-wrapper .row .col .product-type-transaction {
     width: 635px;
-    height: 100%;
     padding: 10px;
   }
 
@@ -364,11 +370,13 @@ body {
   .wrapper .first-wrapper .row .col .transaction-qty,
   .wrapper .first-wrapper .row .col .chart-wrapper-1 {
     width: 100%;
+    height: 100%;
   }
 
   .wrapper .second-wrapper .row .col .product-type-transaction,
   .wrapper .second-wrapper .row .col .chart-wrapper-2 {
     width: 100%;
+    height: 100%;
   }
 }
 
