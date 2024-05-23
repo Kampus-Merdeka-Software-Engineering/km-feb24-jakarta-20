@@ -291,6 +291,36 @@ body {
   box-shadow: 5px 10px #634832;
 }
 
+.statistik-transaksi div div ul {
+  display: flex;
+  list-style-type: none;
+  gap: 15px;
+}
+
+.statistik-transaksi div div ul .filter-div {
+  background-color: #967259;
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+  align-items: start;
+  text-align: left;
+}
+
+.statistik-transaksi div div ul .filter-div #myForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  font-size: 24px;
+}
+
+.statistik-transaksi div div ul .filter-div #myForm .date-div {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
 @media only screen and (min-width: 1201px) {
   .wrapper .first-wrapper,
   .wrapper .second-wrapper {
@@ -377,6 +407,30 @@ body {
   .wrapper .second-wrapper .row .col .chart-wrapper-2 {
     width: 100%;
     height: 100%;
+  }
+
+  .statistik-transaksi div div ul {
+    display: flex;
+    list-style-type: none;
+    gap: 15px;
+    margin: 0 150px;
+  }
+
+  .statistik-transaksi div div ul .filter-div #myForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    gap: 0px;
+    align-items: start;
+  }
+
+  .statistik-transaksi div div ul .filter-div #myForm .date-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 }
 
