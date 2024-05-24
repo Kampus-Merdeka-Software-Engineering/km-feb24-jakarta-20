@@ -10,6 +10,18 @@ function highlightContainer() {
   });
 }
 
+function convertDate(originalDate) {
+  // Parse the original date
+  const dateParts = originalDate.split("-");
+  const year = dateParts[0];
+  const month = dateParts[1] - 1;
+  const day = dateParts[2] > 10 ? dateParts[2] : dateParts[2] - 1;
+
+  // Convert to the target format DD/MM/YYYY
+  const newDate = `${month + 1}/${day > 10 ? day : day + 1}/${year}`;
+  return newDate;
+}
+
 // ###############
 // ###############
 // ###############
@@ -43,6 +55,9 @@ async function fetchData() {
 
     // Id Store Dari Keseluruhan Data
     const uniqueStoreIds = [...new Set(retrievedData.map((v) => v.store_id))];
+    // 3 (Astoria)
+    // 5 (Lower Manhattan)
+    // 8 (Hell's Kitchen)
 
     // Lokasi Store
     const uniqueStoreLocation = [
@@ -62,31 +77,41 @@ async function fetchData() {
       ),
     ];
 
-    // filter berdasarkan tanggal transaksi dan tipe kopi
-    const date1 = new Date("2023-01-01");
-    const date2 = new Date("2023-05-30");
-    const filterTransactionByDate = retrievedData
-      .filter((v) => {
-        const transactionDate = new Date(v.transaction_date);
-        return transactionDate >= date1 && transactionDate <= date2;
-      })
-      .filter(
-        (v) =>
-          v.product_type.toLowerCase().includes("coffee") ||
-          v.product_type.toLowerCase().includes("espresso")
-      )
-      .map((v) => {
-        return {
-          transactionDate: v.transaction_date,
-          productName: v.product_detail,
-          productType: v.product_type,
-        };
-      });
+    const form = document.getElementById("myForm");
+    form.addEventListener("submit", (e) => {
+      const data = new FormData(e.target);
+      const store = data.get("store") == null ? 8 : data.get("store");
+      const startDate =
+        data.get("startDate") == null
+          ? new Date("2023-1-1")
+          : convertDate(data.get("startDate"));
+      const endDate =
+        data.get("endDate") == null
+          ? new Date("2023-6-30")
+          : convertDate(data.get("endDate"));
+
+      localStorage.setItem("storeId", store);
+      localStorage.setItem("startDate", startDate);
+      localStorage.setItem("endDate", endDate);
+    });
+
+    // endDate sampai bulan 6 karena yang product type coffee hanya ada
+    // sampai bulan 6
+    let storeId = localStorage.getItem("storeId");
+    let startDate = localStorage.getItem("startDate");
+    let endDate = localStorage.getItem("endDate");
 
     // Average Quantity Sales Per Month
     const monthlyTotalQtys = {};
     const uniqueMonths = new Set();
-    retrievedData.forEach((sale) => {
+    const filteredData = retrievedData.filter(
+      (v) =>
+        v.store_id == storeId &&
+        v.transaction_date >= startDate &&
+        v.transaction_date <= endDate
+    );
+
+    filteredData.forEach((sale) => {
       const dateParts = sale.transaction_date.split("/");
       const month = `${dateParts[2]}-${dateParts[0]}`;
       uniqueMonths.add(month);
@@ -102,28 +127,28 @@ async function fetchData() {
     const averageQtyPerMonth = totalQtys / totalMonths;
 
     // Average Quantity Per Transaction
-    const totalQuantity = retrievedData.reduce(
+    const totalQuantity = filteredData.reduce(
       (acc, curr) => acc + curr.transaction_qty,
       0
     );
-    const totalTransactionsForAverage = retrievedData.length;
+    const totalTransactionsForAverage = filteredData.length;
     const averageQuantityPerTransaction =
       totalQuantity / totalTransactionsForAverage;
 
     // Average Spending Per Transaction
-    const totalSpending = retrievedData.reduce(
+    const totalSpending = filteredData.reduce(
       (acc, curr) => acc + curr.transaction_qty * curr.unit_price,
       0
     );
-    const totalTransactions = retrievedData.length;
+    const totalTransactions = filteredData.length;
     const averageSpendingPerTransaction = totalSpending / totalTransactions;
 
     // Average Spending Per Transaction Quantity
-    const totalSpendingForPerTransactionQty = retrievedData.reduce(
+    const totalSpendingForPerTransactionQty = filteredData.reduce(
       (acc, curr) => acc + curr.transaction_qty * curr.unit_price,
       0
     );
-    const totalQuantityItemSold = retrievedData.reduce(
+    const totalQuantityItemSold = filteredData.reduce(
       (acc, curr) => acc + curr.transaction_qty,
       0
     );
@@ -182,7 +207,6 @@ async function fetchData() {
       // Create card element
       var card = document.createElement("div");
       card.classList.add("card");
-      card.style.width = "15rem";
 
       // Create card body
       var cardBody = document.createElement("div");
@@ -202,7 +226,7 @@ async function fetchData() {
           currency: "USD",
         });
       } else {
-        cardText.textContent = element.value + " (pcs) ";
+        cardText.textContent = Math.round(element.value) + " (pcs) ";
       }
 
       // Create card link div
@@ -212,23 +236,12 @@ async function fetchData() {
       cardLinkDiv.style.alignItems = "center";
       cardLinkDiv.style.textAlign = "left";
 
-      // Create card subtitle
-      var cardSubtitle = document.createElement("h6");
-      cardSubtitle.classList.add("card-subtitle");
-      cardSubtitle.textContent = `Diperbaharui ${element.updated} jam yang lalu`;
-
       // Create card link
       var cardLink = document.createElement("a");
       cardLink.classList.add("card-link");
       cardLink.href = "#";
 
-      // Create arrow icon
-      var arrowIcon = document.createElement("i");
-      arrowIcon.classList.add("fa-solid", "fa-arrow-right");
-
       // Append elements
-      cardLink.appendChild(arrowIcon);
-      cardLinkDiv.appendChild(cardSubtitle);
       cardLinkDiv.appendChild(cardLink);
       cardBody.appendChild(cardTitle);
       cardBody.appendChild(cardText);
@@ -245,7 +258,7 @@ async function fetchData() {
     // ###############
     // Calculation For Chart
     // Average qty per Transaction Per Month
-    const salesByMonth = retrievedData.reduce((acc, curr) => {
+    const salesByMonth = filteredData.reduce((acc, curr) => {
       const dateParts = curr.transaction_date.split("/");
       const month = `${dateParts[2]}-${dateParts[0]}`;
       acc[month] = acc[month] || [];
@@ -253,6 +266,7 @@ async function fetchData() {
       return acc;
     }, {});
 
+    // Average Quantity Per Transaction Per Month
     const averageQuantityPerTransactionPerMonth = Object.keys(salesByMonth).map(
       (month) => {
         const totalQuantity = salesByMonth[month].reduce(
@@ -263,6 +277,148 @@ async function fetchData() {
         return { month, averageQuantity: totalQuantity / totalTransactions };
       }
     );
+
+    // Average Quantity Per Transaction Per Store
+    const storeTransactionMap = {};
+    const averageQuantityPerTransactionPerStore = [];
+
+    // Group data by store and transaction
+    retrievedData.forEach(
+      ({ store_location, transaction_id, transaction_qty }) => {
+        if (!storeTransactionMap[store_location]) {
+          storeTransactionMap[store_location] = {};
+        }
+        if (!storeTransactionMap[store_location][transaction_id]) {
+          storeTransactionMap[store_location][transaction_id] = 0;
+        }
+        storeTransactionMap[store_location][transaction_id] += transaction_qty;
+      }
+    );
+
+    // Calculate the average quantity per transaction per store
+    for (const store in storeTransactionMap) {
+      const transactions = storeTransactionMap[store];
+      const transactionQuantities = Object.values(transactions);
+      const totalQuantity = transactionQuantities.reduce(
+        (acc, qty) => acc + qty,
+        0
+      );
+      const averageQuantity = totalQuantity / transactionQuantities.length;
+      averageQuantityPerTransactionPerStore.push({ store, averageQuantity });
+    }
+
+    // Average Quantity and Value per Store
+    const storeDataMap = {};
+    filteredData.forEach(({ store_location, transaction_qty, unit_price }) => {
+      if (!storeDataMap[store_location]) {
+        storeDataMap[store_location] = {
+          totalQuantity: 0,
+          totalValue: 0,
+          transactionCount: 0,
+        };
+      }
+      storeDataMap[store_location].totalQuantity += transaction_qty;
+      storeDataMap[store_location].totalValue += unit_price;
+      storeDataMap[store_location].transactionCount += 1;
+    });
+
+    const averageQuantityAndValuePerStore = [];
+    for (const store in storeDataMap) {
+      const { totalQuantity, totalValue, transactionCount } =
+        storeDataMap[store];
+      const averageQuantity = totalQuantity / transactionCount;
+      const averageValue = totalValue / transactionCount;
+      averageQuantityAndValuePerStore.push({
+        store,
+        averageQuantity,
+        averageValue,
+      });
+    }
+
+    const transactionQtyDetails = document.querySelector(
+      ".col .transaction-qty table"
+    );
+    averageQuantityAndValuePerStore.forEach((v) => {
+      var tableRow = document.createElement("tr");
+
+      var tdStoreName = document.createElement("td");
+      tdStoreName.textContent = v.store.toUpperCase();
+
+      var tdAeverageQty = document.createElement("td");
+      tdAeverageQty.textContent = Math.round(v.averageQuantity * 100) / 100;
+
+      var tdAverageValue = document.createElement("td");
+      tdAverageValue.textContent = (
+        Math.round(v.averageValue * 100) / 100
+      ).toLocaleString("en-us", {
+        style: "currency",
+        currency: "USD",
+      });
+
+      tableRow.appendChild(tdStoreName);
+      tableRow.appendChild(tdAeverageQty);
+      tableRow.appendChild(tdAverageValue);
+      transactionQtyDetails.appendChild(tableRow);
+    });
+
+    // Product Type By Transaction Quantity and Value
+
+    // Group data by product type and transaction
+    const productTransactionMap = {};
+
+    filteredData.forEach(({ product_type, transaction_qty, unit_price }) => {
+      const lowerCaseProductType = product_type.toLowerCase();
+      if (
+        lowerCaseProductType.includes("coffee") ||
+        lowerCaseProductType.includes("espresso")
+      ) {
+        if (!productTransactionMap[lowerCaseProductType]) {
+          productTransactionMap[lowerCaseProductType] = {
+            totalQuantity: 0,
+            totalValue: 0,
+          };
+        }
+        productTransactionMap[lowerCaseProductType].totalQuantity +=
+          transaction_qty;
+        productTransactionMap[lowerCaseProductType].totalValue += unit_price;
+      }
+    });
+
+    // Step 2: Transform the result into an array
+    const productTypeArray = Object.keys(productTransactionMap).map(
+      (productType) => ({
+        productType,
+        totalQuantity: productTransactionMap[productType].totalQuantity,
+        totalValue: productTransactionMap[productType].totalValue,
+      })
+    );
+
+    const productTypeTransactionDetails = document.querySelector(
+      ".col .product-type-transaction table"
+    );
+    productTypeArray.forEach((v) => {
+      const tableRow = document.createElement("tr");
+
+      var tdStoreName = document.createElement("td");
+      tdStoreName.textContent = v.productType.toUpperCase();
+
+      var tdTransactionQty = document.createElement("td");
+      tdTransactionQty.textContent = Math.round(v.totalQuantity * 100) / 100;
+
+      var tdTransactionValue = document.createElement("td");
+      tdTransactionValue.textContent = (
+        Math.round(v.totalValue * 100) / 100
+      ).toLocaleString("en-us", {
+        style: "currency",
+        currency: "USD",
+      });
+
+      tableRow.appendChild(tdStoreName);
+      tableRow.appendChild(tdTransactionQty);
+      tableRow.appendChild(tdTransactionValue);
+      productTypeTransactionDetails.appendChild(tableRow);
+    });
+    //
 
     // Chart Js
     var ctx = document.getElementById("myChart").getContext("2d");
@@ -287,6 +443,7 @@ async function fetchData() {
             radius: 0,
           },
         },
+        maintainAspectRatio: false,
         scales: {
           y: {
             position: "right",
@@ -302,7 +459,9 @@ async function fetchData() {
         labels: ["Lower Manhattan", "Hell's Kitchen", "Astoria"],
         datasets: [
           {
-            data: [70, 10, 6],
+            data: averageQuantityPerTransactionPerStore.map(
+              (v) => v.averageQuantity
+            ),
             borderColor: ["#967259", "#634832", "#DDAA86"],
             backgroundColor: ["#967259", "#634832", "#DDAA86"],
             borderWidth: 2,
