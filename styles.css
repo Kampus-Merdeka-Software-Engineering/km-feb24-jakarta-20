@@ -349,7 +349,7 @@ body {
 
   .first-wrapper .row .col .transaction-qty {
     padding: 10px;
-    width: 300px;
+    width: 350px;
     height: 220px;
   }
 
@@ -359,7 +359,7 @@ body {
   }
 
   .second-wrapper .row .col .chart-wrapper-2 {
-    width: 300px;
+    width: 350px;
     height: 420px;
   }
 }

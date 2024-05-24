@@ -236,23 +236,12 @@ async function fetchData() {
       cardLinkDiv.style.alignItems = "center";
       cardLinkDiv.style.textAlign = "left";
 
-      // Create card subtitle
-      var cardSubtitle = document.createElement("h6");
-      cardSubtitle.classList.add("card-subtitle");
-      cardSubtitle.textContent = `Diperbaharui ${element.updated} jam yang lalu`;
-
       // Create card link
       var cardLink = document.createElement("a");
       cardLink.classList.add("card-link");
       cardLink.href = "#";
 
-      // Create arrow icon
-      var arrowIcon = document.createElement("i");
-      arrowIcon.classList.add("fa-solid", "fa-arrow-right");
-
       // Append elements
-      cardLink.appendChild(arrowIcon);
-      cardLinkDiv.appendChild(cardSubtitle);
       cardLinkDiv.appendChild(cardLink);
       cardBody.appendChild(cardTitle);
       cardBody.appendChild(cardText);
