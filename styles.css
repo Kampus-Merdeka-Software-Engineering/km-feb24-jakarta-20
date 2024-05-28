@@ -123,6 +123,10 @@ body {
   height: 100%;
 }
 
+.statistik-transaksi .detail-statistik-transaksi .row .col {
+  width: 280px;
+}
+
 /* Small Devices */
 @media (max-width: 850px) {
   .col {
@@ -327,20 +331,17 @@ body {
   .wrapper .first-wrapper,
   .wrapper .second-wrapper {
     display: flex;
-    justify-content: space-evenly;
+    gap: 20px;
     align-items: center;
-    margin-left: 170px;
     height: 100%;
   }
 
   .wrapper .first-wrapper .row {
     display: flex;
-    margin-left: 170px;
     gap: 320px;
     align-items: center;
   }
   .wrapper .second-wrapper .row {
-    margin-left: 170px;
     display: flex;
     gap: 320px;
     align-items: center;
@@ -462,6 +463,7 @@ body {
 .product-type-transaction table {
   text-align: center;
 }
+
 .product-type-transaction table tr th,
 .product-type-transaction table tr td {
   padding: 10px;
