@@ -40,7 +40,7 @@ body {
   color: white;
   padding: 5px 10px;
   border-radius: 10px;
-  width: 100px;
+  width: 150px;
 }
 
 .tambah-pesanan {
@@ -193,8 +193,9 @@ body {
   display: flex;
   position: relative;
   border-radius: 20px;
-  margin: 10px;
+  margin-left: 10px;
   padding-left: 10px;
+  width: 250px;
   height: 100%;
   box-sizing: border-box;
 }
@@ -295,6 +296,7 @@ body {
   display: flex;
   list-style-type: none;
   gap: 15px;
+  padding-left: 0;
 }
 
 .statistik-transaksi div div ul .filter-div {
@@ -333,33 +335,35 @@ body {
 
   .wrapper .first-wrapper .row {
     display: flex;
-    justify-content: space-between;
+    margin-left: 170px;
+    gap: 320px;
     align-items: center;
   }
   .wrapper .second-wrapper .row {
+    margin-left: 170px;
     display: flex;
-    justify-content: space-between;
+    gap: 320px;
     align-items: center;
   }
 
   .first-wrapper .row .col .chart-wrapper-1 {
-    width: 570px;
-    height: 230px;
+    width: 600px;
+    height: 400px;
   }
 
   .first-wrapper .row .col .transaction-qty {
     padding: 10px;
-    width: 350px;
-    height: 220px;
+    width: 400px;
+    height: 390px;
   }
 
   .second-wrapper .row .col .product-type-transaction {
-    width: 570px;
-    height: 100%;
+    width: 600px;
+    height: 400px;
   }
 
   .second-wrapper .row .col .chart-wrapper-2 {
-    width: 350px;
+    width: 400px;
     height: 420px;
   }
 }
@@ -375,7 +379,7 @@ body {
   }
 
   .first-wrapper .row .col .transaction-qty {
-    width: 615px;
+    width: 500px;
   }
 
   .second-wrapper .row .col .product-type-transaction {
