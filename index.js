@@ -36,8 +36,8 @@ const row = statistikTransaksi.querySelector(".row");
 document.querySelector(".hamburger").addEventListener("click", function () {
   this.classList.toggle("active");
 });
-let retrievedData;
 
+let retrievedData;
 const loadData = async () => {
   try {
     const response = await fetch("./data.json");
@@ -52,30 +52,6 @@ async function fetchData() {
   try {
     const data = await loadData();
     retrievedData = data;
-
-    // Id Store Dari Keseluruhan Data
-    const uniqueStoreIds = [...new Set(retrievedData.map((v) => v.store_id))];
-    // 3 (Astoria)
-    // 5 (Lower Manhattan)
-    // 8 (Hell's Kitchen)
-
-    // Lokasi Store
-    const uniqueStoreLocation = [
-      ...new Set(retrievedData.map((v) => v.store_location)),
-    ];
-
-    // Tipe Product (Kopi)
-    const uniqueProductType = [
-      ...new Set(
-        retrievedData
-          .filter(
-            (v) =>
-              v.product_type.toLowerCase().includes("coffee") ||
-              v.product_type.toLowerCase().includes("espresso")
-          )
-          .map((v) => v.product_type.toLowerCase())
-      ),
-    ];
 
     const form = document.getElementById("myForm");
     form.addEventListener("submit", (e) => {
@@ -362,7 +338,6 @@ async function fetchData() {
     });
 
     // Product Type By Transaction Quantity and Value
-
     // Group data by product type and transaction
     const productTransactionMap = {};
 
