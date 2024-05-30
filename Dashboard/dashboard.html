@@ -5,32 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DASHBOARD</title>
     <link rel="stylesheet" href="dashboard.css">
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="dashboard.js"></script>
 </head>
 <body>
     <div class="sidebar">
         <div class="sidebar-content">
-            <img src="logo.svg" alt="">
+            <img src="logo.svg" alt="Logo">
             <ul>
                 <a href="#">
                     <li class="option2">
                         <i class="fa-solid fa-chart-line"></i>
                         <p>Dashboard</p>
                     </li>
+                </a>
                 <a href="table.html">
                     <li class="option1">
                         <i class="fa-solid fa-table"></i>
                         <p>Table</p>
                     </li>
-                </a>
                 </a>
             </ul>
         </div>
@@ -40,33 +34,15 @@
             <h1>Transaction Dashboard</h1>
             <div class="dropdown">
                 <label for="store">Store</label>
-                <select
-                name="store"
-                id="store"
-                style="padding: 10px; border-radius: 10px"
-              >
-                <option value="8">Hell's Kitchen</option>
-                <option value="5">Lower Manhattan</option>
-                <option value="3">Astoria</option>
-              </select>
+                <select name="store" id="store" style="padding: 10px; border-radius: 10px">
+                    <option value="8">Hell's Kitchen</option>
+                    <option value="5">Lower Manhattan</option>
+                    <option value="3">Astoria</option>
+                </select>
                 <label for="start-date">Start Date</label>
-                    <input
-                    type="date"
-                    name="startDate"
-                    min="2023-01-01"
-                    max="2023-06-30"
-                    value="2023-01-01"
-                    style="padding: 10px; border-radius: 10px"
-                    />
+                <input type="date" name="startDate" min="2023-01-01" max="2023-06-30" value="2023-01-01" style="padding: 10px; border-radius: 10px" />
                 <label for="end-date">End Date</label>
-                    <input
-                    type="date"
-                    name="endDate"
-                    min="2023-01-01"
-                    max="2023-06-30"
-                    value="2023-06-30"
-                    style="padding: 10px; border-radius: 10px"
-                />
+                <input type="date" name="endDate" min="2023-01-01" max="2023-06-30" value="2023-06-30" style="padding:10px; border-radius: 10px" />
                 <button>Filter</button>
             </div>
         </div>
@@ -87,7 +63,7 @@
                 <div class="color-box"></div>
                 <div class="content-hi-box">
                     <div class="text">
-                        <h2>Average Quantity <br> Per Transaction </h2>
+                        <h2>Average Quantity <br> Per Transaction</h2>
                         <p>2</p>
                     </div>
                     <div class="gambar">
@@ -99,8 +75,8 @@
                 <div class="color-box"></div>
                 <div class="content-hi-box">
                     <div class="text">
-                        <h2>Average Spending <br>Per Transaction <h2>
-                        <p>$4,62</p>
+                        <h2>Average Spending <br>Per Transaction</h2>
+                        <p>$4.62</p>
                     </div>
                     <div class="gambar">
                         <img src="hi3.svg" alt="">
@@ -112,7 +88,7 @@
                 <div class="content-hi-box">
                     <div class="text">
                         <h2>Average Spending Per<br> Transaction Quantity</h2>
-                        <p>$3,02</p>
+                        <p>$3.02</p>
                     </div>
                     <div class="gambar">
                         <img src="hi4.svg" alt="">
@@ -129,7 +105,7 @@
                 <div class="transactionChart">
                     <canvas id="transactionChart"></canvas>
                 </div>
-            </div>       
+            </div>
             <div class="table">
                 <div class="title-2">
                     <h2>Average Quantity And Value<br>Per Store</h2>
@@ -145,7 +121,7 @@
                         </thead>
                         <tbody>
                             <tr class="mid">
-                                <td>Hells Kitchen</td>
+                                <td>Hell's Kitchen</td>
                                 <td>30,220</td>
                                 <td>$91,222.65</td>
                             </tr>
@@ -221,13 +197,14 @@
                     </table>
                 </div>
             </div>
-        <div class="pie-chart">
-            <div class="title-4">
-                <h1>Statistic</h1>
-                <h2>Average Transaction Quantity Per Store</h2>
-            </div>
-            <div class="storePieChart">
-                <canvas id="storePieChart"></canvas>
+            <div class="pie-chart">
+                <div class="title-4">
+                    <h1>Statistic</h1>
+                    <h2>Average Transaction Quantity Per Store</h2>
+                </div>
+                <div class="storePieChart">
+                    <canvas id="storePieChart"></canvas>
+                </div>
             </div>
         </div>
     </div>
