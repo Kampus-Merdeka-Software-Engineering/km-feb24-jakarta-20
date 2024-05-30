@@ -20,38 +20,54 @@
         <div class="sidebar-content">
             <img src="logo.svg" alt="">
             <ul>
-                <a href="home.html">
-                    <li class="option1">
-                        <i class="fa-solid fa-house"></i>
-                        <p>Home</p>
-                    </li>
-                </a>
                 <a href="#">
                     <li class="option2">
                         <i class="fa-solid fa-chart-line"></i>
                         <p>Dashboard</p>
                     </li>
+                <a href="table.html">
+                    <li class="option1">
+                        <i class="fa-solid fa-table"></i>
+                        <p>Table</p>
+                    </li>
+                </a>
                 </a>
             </ul>
         </div>
     </div>
     <div class="content">
         <div class="header">
-            <h1>Statistik Transaksi</h1>
+            <h1>Transaction Dashboard</h1>
             <div class="dropdown">
-                <select id="location">
-                    <option value="" disabled selected> Store Location</option>
-                    <option value="location1">Lower Manhattan</option>
-                    <option value="location2">Hells Kitchen</option>
-                    <option value="location3">Astoria</option>
-                </select>
-                <select id="date-range">
-                    <option value="" disabled selected>Date Range</option>
-                    <option value="today">Today</option>
-                    <option value="this-week">This Week</option>
-                    <option value="this-month">This Month</option>
-                    <option value="custom">Custom</option>
-                </select>
+                <label for="store">Store</label>
+                <select
+                name="store"
+                id="store"
+                style="padding: 10px; border-radius: 10px"
+              >
+                <option value="8">Hell's Kitchen</option>
+                <option value="5">Lower Manhattan</option>
+                <option value="3">Astoria</option>
+              </select>
+                <label for="start-date">Start Date</label>
+                    <input
+                    type="date"
+                    name="startDate"
+                    min="2023-01-01"
+                    max="2023-06-30"
+                    value="2023-01-01"
+                    style="padding: 10px; border-radius: 10px"
+                    />
+                <label for="end-date">End Date</label>
+                    <input
+                    type="date"
+                    name="endDate"
+                    min="2023-01-01"
+                    max="2023-06-30"
+                    value="2023-06-30"
+                    style="padding: 10px; border-radius: 10px"
+                />
+                <button>Filter</button>
             </div>
         </div>
         <div class="highlight">
