@@ -454,6 +454,11 @@ async function fetchData() {
   } catch (error) {
     console.error(error);
   }
+
+  // Footer
+  const footer = document.querySelector(".footer");
+  footer.textContent =
+    "© " + new Date().getFullYear() + "RevoUTeam20Jakarta. All Rights Reserved";
 }
 
 fetchData();
