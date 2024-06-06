@@ -174,7 +174,7 @@ body {
 .content-hi-box .gambar {
     display: flex;
     align-items: center;
-    padding-right: 30px;
+    padding-right: 10px;
     padding-left: auto;
 }
 
@@ -724,10 +724,6 @@ body {
 
     .sidebar-content ul {
         gap: 10px;
-    }
-
-    .content-hi-box .gambar {
-        padding-right: 10px; 
     }
 
 }
