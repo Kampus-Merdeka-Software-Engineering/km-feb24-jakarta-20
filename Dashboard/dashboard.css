@@ -149,6 +149,8 @@ body {
     margin: 10px;
     display: flex;
     flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
 }
 
 .content-hi-box .text {
@@ -172,7 +174,8 @@ body {
 .content-hi-box .gambar {
     display: flex;
     align-items: center;
-    padding-left: 10px;
+    padding-right: 30px;
+    padding-left: auto;
 }
 
 .content-hi-box img {
@@ -721,6 +724,10 @@ body {
 
     .sidebar-content ul {
         gap: 10px;
+    }
+
+    .content-hi-box .gambar {
+        padding-right: 10px; 
     }
 
 }
