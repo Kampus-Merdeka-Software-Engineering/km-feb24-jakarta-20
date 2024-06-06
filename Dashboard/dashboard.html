@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DASHBOARD</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="index.js"></script>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-content">
+            <img src="logo.svg" alt="Logo">
+            <ul>
+                <a href="#">
+                    <li class="option1">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <p>Dashboard</p>
+                    </li>
+                </a>
+                <a href="#dataTables">
+                    <li class="option2">
+                        <i class="fa-solid fa-table"></i>
+                        <p>Table</p>
+                    </li>
+                </a>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        <div class="header">
+            <h1>Transaction Dashboard</h1>
+            <div class="dropdown">
+                <label for="store">Store</label>
+                <select name="store" id="store" style="padding: 10px; border-radius: 10px">
+                    <option value="8">Hell's Kitchen</option>
+                    <option value="5">Lower Manhattan</option>
+                    <option value="3">Astoria</option>
+                </select>
+                <label for="start-date">Start Date</label>
+                <input type="date" name="startDate" min="2023-01-01" max="2023-06-30" value="2023-01-01" style="padding: 10px; border-radius: 10px" />
+                <label for="end-date">End Date</label>
+                <input type="date" name="endDate" min="2023-01-01" max="2023-06-30" value="2023-06-30" style="padding:10px; border-radius: 10px" />
+                <button>Filter</button>
+            </div>
+        </div>
+        <div class="highlight">
+            <div class="hi-box">
+                <div class="color-box"></div>
+                <div class="content-hi-box">
+                    <div class="text">
+                        <h2>Average Quantity <br> Sales Per Month</h2>
+                        <p>14,875</p>
+                    </div>
+                    <div class="image">
+                        <img src="image1.svg" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="hi-box">
+                <div class="color-box"></div>
+                <div class="content-hi-box">
+                    <div class="text">
+                        <h2>Average Quantity <br> Per Transaction</h2>
+                        <p>2</p>
+                    </div>
+                    <div class="image">
+                        <img src="image2.svg" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="hi-box">
+                <div class="color-box"></div>
+                <div class="content-hi-box">
+                    <div class="text">
+                        <h2>Average Spending <br>Per Transaction</h2>
+                        <p>$4.62</p>
+                    </div>
+                    <div class="image">
+                        <img src="image3.svg" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="hi-box">
+                <div class="color-box"></div>
+                <div class="content-hi-box">
+                    <div class="text">
+                        <h2>Average Spending Per<br> Transaction Quantity</h2>
+                        <p>$3.02</p>
+                    </div>
+                    <div class="image">
+                        <img src="image4.svg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chart">
+            <div class="line-chart">
+                <div class="title-1">
+                    <h1>Statistic</h1>
+                    <h2>Transaction Quantity</h2>
+                </div>
+                <div class="transactionChart">
+                    <canvas id="transactionChart"></canvas>
+                </div>
+            </div>
+            <div class="table">
+                <div class="title-2">
+                    <h2>Average Quantity And Value<br>Per Store</h2>
+                </div>
+                <div class="storeTable">
+                    <table id="storeTable">
+                        <thead>
+                            <tr>
+                                <th>Store Location</th>
+                                <th>Transaction Qty</th>
+                                <th>Transaction Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="mid">
+                                <td>Hell's Kitchen</td>
+                                <td>30,220</td>
+                                <td>$91,222.65</td>
+                            </tr>
+                            <tr class="mid">
+                                <td>Astoria</td>
+                                <td>29,555</td>
+                                <td>$89,744.30</td>
+                            </tr>
+                            <tr class="mid">
+                                <td>Lower Manhattan</td>
+                                <td>29,375</td>
+                                <td>$88,985.50</td>
+                            </tr>
+                            <tr class="grand-total">
+                                <td>Grand Total</td>
+                                <td>89,250</td>
+                                <td>$269,952.45</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="tables">
+            <div class="left">
+                <div class="title-3">
+                    <h2>Product Type</h2>
+                    <h2>By Transaction Quantity and Value</h2>
+                </div>
+                <div class="productTable">
+                    <table id="productTable">
+                        <thead>
+                            <tr>
+                                <th>Product Type</th>
+                                <th>Transaction Quantity</th>
+                                <th>Transaction Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="mid">
+                                <td>Gourmet brewed coffee</td>
+                                <td>25,973</td>
+                                <td>$70,034.80</td>
+                            </tr>
+                            <tr class="mid">
+                                <td>Barista Espresso</td>
+                                <td>24,943</td>
+                                <td>$54,406.20</td>
+                            </tr>
+                            <tr class="mid">
+                                <td>Organic brewed coffee</td>
+                                <td>13,012</td>
+                                <td>$37,746.50</td>
+                            </tr>
+                            <tr class="mid">
+                                <td>Drip Coffee</td>
+                                <td>12,891</td>
+                                <td>$31,984.00</td>
+                            </tr>
+                            <tr class="mid">
+                                <td>Premium brewed Coffee</td>
+                                <td>12,431</td>
+                                <td>$38,781.15</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="grand-total">
+                                <td>Grand Total</td>
+                                <td>89,250</td>
+                                <td>$232,952.65</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <div class="pie-chart">
+                <div class="title-4">
+                    <h1>Statistic</h1>
+                    <h2>Average Transaction Quantity Per Store</h2>
+                </div>
+                <div class="storePieChart">
+                    <canvas id="storePieChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <!-- tinggal merge tables data & javascript -->
+        <div class="dataTables "id="dataTables">
+            <h1>Table Maven Coffee Shop</h1>
+        </div>
+    </div>
+</body>
+</html>
