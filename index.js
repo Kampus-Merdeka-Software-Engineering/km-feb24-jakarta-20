@@ -22,6 +22,20 @@ function convertDate(originalDate) {
   return newDate;
 }
 
+function convertDateToInputTypeDate(inputDate) {
+  // Split the input date into month, day, and year
+  const [month, day, year] = inputDate.split("/");
+
+  // Pad month and day with leading zeros if necessary
+  const paddedMonth = month.padStart(2, "0");
+  const paddedDay = day.padStart(2, "0");
+
+  // Format into YYYY-MM-DD
+  const formattedDate = `${year}-${paddedMonth}-${paddedDay}`;
+
+  return formattedDate;
+}
+
 // ###############
 // ###############
 // ###############
@@ -49,6 +63,22 @@ const loadData = async () => {
 };
 
 async function fetchData() {
+  let storeId =
+    localStorage.getItem("storeId") == null
+      ? 8
+      : localStorage.getItem("storeId");
+  let startDate =
+    localStorage.getItem("startDate") == null
+      ? new Date("2023-01-01").toISOString().split("T")[0]
+      : convertDateToInputTypeDate(localStorage.getItem("startDate"));
+  let endDate =
+    localStorage.getItem("endDate") == null
+      ? new Date("2023-06-30").toISOString().split("T")[0]
+      : convertDateToInputTypeDate(localStorage.getItem("endDate"));
+
+  document.getElementById("startDate").value = startDate;
+  document.getElementById("endDate").value = endDate;
+  document.getElementById("store").value = storeId;
   try {
     const data = await loadData();
     retrievedData = data;
@@ -73,9 +103,18 @@ async function fetchData() {
 
     // endDate sampai bulan 6 karena yang product type coffee hanya ada
     // sampai bulan 6
-    let storeId = localStorage.getItem("storeId");
-    let startDate = localStorage.getItem("startDate");
-    let endDate = localStorage.getItem("endDate");
+    let storeId =
+      localStorage.getItem("storeId") == null
+        ? 8
+        : localStorage.getItem("storeId");
+    let startDate =
+      localStorage.getItem("startDate") == null
+        ? 8
+        : localStorage.getItem("startDate");
+    let endDate =
+      localStorage.getItem("endDate") == null
+        ? 8
+        : localStorage.getItem("endDate");
 
     // Average Quantity Sales Per Month
     const monthlyTotalQtys = {};

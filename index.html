@@ -43,13 +43,18 @@
             </span>
           </li>
           <li class="sidebars sidebars-1 highlight">
-            <i class="fa-solid fa-gear"></i>
-            <span>Dashboard</span>
+            <a href="#dashboard" style="text-decoration: none">
+              <i class="fa-solid fa-gear"></i>
+              <span> Dashboard </span>
+            </a>
+          </li>
+          <li class="sidebars sidebars-1">
+            <a href="#dataset" style="text-decoration: none">
+              <i class="fa-solid fa-database"></i>
+              <span> Dataset </span>
+            </a>
           </li>
         </ul>
-        <button class="logout">
-          <span>Logout</span>
-        </button>
       </div>
 
       <div class="content">
@@ -73,7 +78,7 @@
         </div>
         <div class="statistik-transaksi">
           <div>
-            <h1>Transaction Dashboard</h1>
+            <h1 id="dashboard">Transaction Dashboard</h1>
             <div
               style="display: flex; align-items: center; border-radius: 10px"
               class="filter"
@@ -108,6 +113,7 @@
                         <input
                           type="date"
                           name="startDate"
+                          id="startDate"
                           min="2023-01-01"
                           max="2023-06-30"
                           value="2023-01-01"
@@ -119,6 +125,7 @@
                         <input
                           type="date"
                           name="endDate"
+                          id="endDate"
                           min="2023-01-01"
                           max="2023-06-30"
                           value="2023-06-30"
@@ -144,7 +151,7 @@
               </ul>
             </div>
           </div>
-          <div class="detail-statistik-transaksi" style="margin: 20px 0">
+          <div class="detail-statistik-transaksi" style="margin: 20px 0px">
             <div class="row"></div>
           </div>
         </div>
@@ -199,7 +206,8 @@
     <br />
     <br />
     <br />
-    <h1 style="margin-left: 350px">Dataset Maven Coffee Shop</h1>
+
+    <h1 style="margin-left: 350px" id="dataset">Dataset Maven Coffee Shop</h1>
     <table
       id="myTable"
       class="display"
@@ -221,8 +229,15 @@
         </tr>
       </thead>
     </table>
-    <div style="margin-left: 350px;display: flex;justify-content: center;align-items: center;">
-      <footer class="footer" ></footer>
+    <div
+      style="
+        margin-left: 350px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <footer class="footer"></footer>
     </div>
 
     <!-- JQuery for Datatables -->
@@ -243,7 +258,6 @@
             return response.json();
           })
           .then((data) => {
-            console.log(data);
             $("#myTable").DataTable({
               data: data,
               responsive: true,

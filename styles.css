@@ -3,6 +3,7 @@ body {
   padding: 0;
   box-sizing: border-box;
   background-color: #f6f6f6;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .container {
@@ -33,6 +34,12 @@ body {
 .sidebars {
   margin: 20px 0;
   text-align: left;
+  color: black;
+}
+
+.sidebars span,
+.sidebars i {
+  color: black;
 }
 
 .highlight {
@@ -41,6 +48,11 @@ body {
   padding: 5px 10px;
   border-radius: 10px;
   width: 150px;
+}
+
+.sidebars.highlight span,
+.sidebars.highlight i {
+  color: white;
 }
 
 .tambah-pesanan {
@@ -125,6 +137,8 @@ body {
 
 .statistik-transaksi .detail-statistik-transaksi .row .col {
   width: 280px;
+  padding: 0px;
+  margin: 0px -5px;
 }
 
 /* Small Devices */
