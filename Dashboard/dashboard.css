@@ -418,6 +418,12 @@ body {
     justify-content: center;
 }
 
+.tr-table {
+    padding: 0;
+}
+
+
+
 /* Media Queries */
 @media (max-width: 1375px) {
     #storeTable th, #storeTable td {
