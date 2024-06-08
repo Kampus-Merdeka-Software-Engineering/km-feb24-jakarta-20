@@ -3,10 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DASHBOARD</title>
+    <title>Maven Coffe Shop Dashboard</title>
     <link rel="stylesheet" href="dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js"
+      integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.0/dist/chart.umd.js"></script>
+
+    <!-- Datatables CDN -->
+    <script src="//cdn.datatables.net/2.0.7/css/dataTables.dataTables.min.css"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.css"
+    />
     <script src="index.js"></script>
 </head>
 <body>
@@ -20,10 +34,16 @@
                         <p>Dashboard</p>
                     </li>
                 </a>
-                <a href="#dataTables">
+                <a href="#myTable">
                     <li class="option2">
                         <i class="fa-solid fa-table"></i>
                         <p>Table</p>
+                    </li>
+                </a>
+                <a href="about.html">
+                    <li class="option2">
+                        <i class="fa-solid fa-user"></i>
+                        <p>About Us</p>
                     </li>
                 </a>
             </ul>
@@ -207,10 +227,72 @@
                 </div>
             </div>
         </div>
+        <div class="about-us" id="about-us"></div>
+
         <!-- tinggal merge tables data & javascript -->
         <div class="dataTables "id="dataTables">
             <h1>Table Maven Coffee Shop</h1>
         </div>
+        <table
+            id="myTable"
+            class="myTable"
+        >
+            <thead>
+                <tr class="tr-table">
+                    <th>Transaction Id</th>
+                    <th>Transaction Date</th>
+                    <th>Transaction Time</th>
+                    <th>Transaction Qty</th>
+                    <th>Store Id</th>
+                    <th>Store Location</th>
+                    <th>Product Id</th>
+                    <th>Unit Price</th>
+                    <th>Product Category</th>
+                    <th>Product Type</th>
+                    <th>Product Detail</th>
+                </tr>
+            </thead>
+        </table>
+  
     </div>
 </body>
+<!-- JQuery for Datatables -->
+<script
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        ></script>
+        <script src="//cdn.datatables.net/2.0.7/js/dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
+        <!--  -->
+        <script src="index.js"></script>
+        <script>
+            $(document).ready(function () {
+            fetch("./data.json")
+                .then((response) => {
+                return response.json();
+                })
+                .then((data) => {
+                console.log(data);
+                $("#myTable").DataTable({
+                    data: data,
+                    responsive: true,
+                    columns: [
+                    { data: "transaction_id" },
+                    { data: "transaction_date" },
+                    { data: "transaction_time" },
+                    { data: "transaction_qty" },
+                    { data: "store_id" },
+                    { data: "store_location" },
+                    { data: "product_id" },
+                    { data: "unit_price" },
+                    { data: "product_category" },
+                    { data: "product_type" },
+                    { data: "product_detail" },
+                    ],
+                });
+                });
+            });
+        </script>
 </html>
