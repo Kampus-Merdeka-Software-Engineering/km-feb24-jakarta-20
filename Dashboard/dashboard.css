@@ -406,6 +406,7 @@ body {
     height: 100%;
     display: flex;
     align-items: center;
+    flex-direction: column;
 }
 
 
@@ -418,10 +419,22 @@ body {
     justify-content: center;
 }
 
-.tr-table {
-    padding: 0;
+#myTable {
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    table, th {
+        color: white;
+        background-color: #967259;
+    }
+    th, td {
+        padding: 10px;
+        border: 1px solid black;
+        text-align: center;
+        font-size: 14px;
+    }
 }
-
 
 
 /* Media Queries */
@@ -733,4 +746,3 @@ body {
     }
 
 }
-
