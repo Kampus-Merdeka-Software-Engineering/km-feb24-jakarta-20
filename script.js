@@ -7,13 +7,21 @@ let averageTransactionQtyPerStore = [];
 let averageSpendingPerTransaction = 0;
 let totalTransactionQty = 0;
 let totalUnitPrice = 0;
+let totalSpending = 0;
+let avgQtyPerTransaction = 0;
 
 for (let i = 0; i < datasets.length; i++) {
   const dataset = datasets[i];
 
-  // Awal Average Spending Per Transaction Quantty
+  // Calculate total transaction quantity
   totalTransactionQty += dataset.transaction_qty;
+
+  // Awal Average Spending Per Transaction Quantty
+  averageSpendingPerTransaction += dataset.unit_price * dataset.transaction_qty;
   // Akhir Average Spending Per Transaction Quantty
+
+  // Calculate total unit price
+  totalUnitPrice += dataset.unit_price;
 
   // Untuk Line Chart
   if (
@@ -116,31 +124,39 @@ for (let i = 0; i < datasets.length; i++) {
   }
   // Akhir Average Quantity And Value Per Product Type
 
-  // Awal Average Spending Per Transaction
-  averageSpendingPerTransaction += dataset.unit_price * dataset.transaction_qty;
-  // Akhir Average Spending Per Transaction
-
   // Awal Average Quantity Per Transaction
-  totalUnitPrice += dataset.unit_price;
+  avgQtyPerTransaction = (totalTransactionQty / datasets.length).toFixed(2);
   // Akhir Average Quantity Per Transaction
+
+  // Awal Average Spending Per Transaction (4.65)
+  let transactionValue = dataset.unit_price * dataset.transaction_qty;
+  totalSpending += transactionValue;
+  // Akhir Average Spending Per Transaction
 }
 
 // Awal Average Quantity Sales Per Month
 let avgQtySalesPerMonth = 0;
+let totalQtySalesPerMonth = 0;
 for (let i = 0; i < transactionQtyMonths.length; i++) {
   const transactionQtyMonth = transactionQtyMonths[i];
-  avgQtySalesPerMonth += transactionQtyMonth.value;
+  totalQtySalesPerMonth += transactionQtyMonth.value;
 }
-document.querySelector("#avgQtySalesPerMonth").innerHTML = (
-  avgQtySalesPerMonth / 6
-).toFixed(2);
-document.querySelector("#averageQtyPerTransaction").innerHTML = (
-  totalUnitPrice / totalTransactionQty
-).toFixed(2);
+avgQtySalesPerMonth = totalTransactionQty / transactionQtyMonths.length;
+document.querySelector("#avgQtySalesPerMonth").innerHTML =
+  avgQtySalesPerMonth.toFixed(2);
+// Akhir Average Quantity Sales Per Month
+
+// Average Quantity Per Transaction
+document.querySelector("#averageQtyPerTransaction").innerHTML =
+  avgQtyPerTransaction;
+
+// Average Spending Per Transaction
 document.querySelector("#averageSpendingPerTransaction").innerHTML =
-  "$" + averageSpendingPerTransaction.toFixed(2);
+  "$" + (totalSpending / datasets.length).toFixed(2);
+
+// Average Spending Per Transaction Quantity
 document.querySelector("#averageSpendingPerTransactionQty").innerHTML =
-  "$" + (averageSpendingPerTransaction / totalTransactionQty).toFixed(2);
+  "$" + (totalSpending / totalTransactionQty).toFixed(2);
 // Akhir Average Quantity Sales Per Month
 
 // Awal Average Quantity And Value Per Product Category
@@ -172,6 +188,7 @@ productTable.innerHTML += `
 const storeTable = document.querySelector("#storeTable tbody");
 let totalQty = 0;
 let totalPrice = 0;
+
 for (let i = 0; i < averageQtyAndVallueStores.length; i++) {
   const store = averageQtyAndVallueStores[i];
   totalPrice += store.price;
@@ -553,6 +570,7 @@ document.querySelector("#filterButton").addEventListener("click", (event) => {
 
   // Awal Average Quantity And Value Per Store
   const storeTable = document.querySelector("#storeTable tbody");
+
   storeTable.innerHTML = "";
   let totalQty = 0;
   let totalPrice = 0;
@@ -564,7 +582,7 @@ document.querySelector("#filterButton").addEventListener("click", (event) => {
         <tr class="mid">
             <td>${store.name}</td>
             <td>${store.transaction_qty}</td>
-            <td>${(store.transaction_qty * store.price).toFixed(2)}</td>
+            <td>${(totalPrice * totalQty).toFixed(2)}</td>
         </tr>`;
   }
   storeTable.innerHTML += `
