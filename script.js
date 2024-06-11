@@ -398,7 +398,7 @@ document.querySelector("#filterButton").addEventListener("click", (event) => {
         valueStartDate !== "" &&
         valueEndDate !== ""
       ) {
-        return dateTransaction >= dateStart&& dateTransaction<=dateEnd;
+        return dateTransaction<=dateEnd&&dateTransaction >= dateStart ;
       }
     return true;
   });
