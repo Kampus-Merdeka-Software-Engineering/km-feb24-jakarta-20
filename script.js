@@ -540,13 +540,14 @@ document.querySelector("#filterButton").addEventListener("click", (event) => {
   console.log(averageSpendingPerTransaction)
   // Awal Average Quantity Sales Per Month
   let avgQtySalesPerMonth = 0;
+  let totalQtySalesPerMonth = 0;
   for (let i = 0; i < transactionQtyMonths.length; i++) {
     const transactionQtyMonth = transactionQtyMonths[i];
-    avgQtySalesPerMonth += transactionQtyMonth.value;
+    totalQtySalesPerMonth += transactionQtyMonth.value;
   }
-  document.querySelector("#avgQtySalesPerMonth").innerHTML = (
-    avgQtySalesPerMonth
-  ).toFixed(2);
+  avgQtySalesPerMonth = totalTransactionQty / transactionQtyMonths.length;
+  document.querySelector("#avgQtySalesPerMonth").innerHTML =
+    avgQtySalesPerMonth.toFixed(2);
   document.querySelector("#averageQtyPerTransaction").innerHTML =
     avgQtyPerTransaction 
   document.querySelector("#averageSpendingPerTransaction").innerHTML =
