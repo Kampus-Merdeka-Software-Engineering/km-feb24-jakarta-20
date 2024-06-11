@@ -393,7 +393,13 @@ document.querySelector("#filterButton").addEventListener("click", (event) => {
       valueEndDate === ""
     ) {
       return dateTransaction >= dateStart;
-    }
+    }else if (
+        valueStore === "all" &&
+        valueStartDate !== "" &&
+        valueEndDate !== ""
+      ) {
+        return dateTransaction >= dateStart&& dateTransaction<=dateEnd;
+      }
     return true;
   });
 
