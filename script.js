@@ -57,6 +57,7 @@ for (let i = 0; i < datasets.length; i++) {
           ...item,
           transaction_qty: item.transaction_qty + dataset.transaction_qty,
           price: item.price + dataset.unit_price,
+          value: item.value + dataset.unit_price * dataset.transaction_qty
         };
       }
       return item;
@@ -67,6 +68,7 @@ for (let i = 0; i < datasets.length; i++) {
       name: dataset.store_location,
       transaction_qty: dataset.transaction_qty,
       price: dataset.unit_price,
+      value: dataset.unit_price * dataset.transaction_qty
     });
   }
   // Akhir Average Transaction Quantity And Value Per Store
@@ -193,13 +195,13 @@ let totalPrice = 0;
 
 for (let i = 0; i < averageQtyAndVallueStores.length; i++) {
   const store = averageQtyAndVallueStores[i];
-  totalPrice += store.price;
+  totalPrice += store.value;
   totalQty += store.transaction_qty;
   storeTable.innerHTML += `
         <tr class="mid">
             <td>${store.name}</td>
             <td>${store.transaction_qty}</td>
-            <td>${(store.transaction_qty * store.price).toFixed(2)}</td>
+            <td>${(store.value).toFixed(2)}</td>
         </tr>`;
 }
 storeTable.innerHTML += `
@@ -454,7 +456,7 @@ document.querySelector("#filterButton").addEventListener("click", (event) => {
             ...item,
             transaction_qty: item.transaction_qty + dataset.transaction_qty,
             price: item.price + dataset.unit_price,
-            value:item.value+dataset.unit_price*dataset.transaction_qty
+            value:item.value + dataset.unit_price * dataset.transaction_qty
           };
         }
         return item;
@@ -465,7 +467,7 @@ document.querySelector("#filterButton").addEventListener("click", (event) => {
         name: dataset.store_location,
         transaction_qty: dataset.transaction_qty,
         price: dataset.unit_price,
-        value: dataset.unit_price*dataset.transaction_qty
+        value: dataset.unit_price * dataset.transaction_qty
       });
     }
     // Akhir Average Transaction Quantity And Value Per Store
@@ -509,6 +511,7 @@ document.querySelector("#filterButton").addEventListener("click", (event) => {
               ...item,
               transaction_qty: item.transaction_qty + dataset.transaction_qty,
               price: item.price + dataset.unit_price,
+              value: item.value + dataset.unit_price * dataset.transaction_qty
             };
           }
           return item;
@@ -520,6 +523,7 @@ document.querySelector("#filterButton").addEventListener("click", (event) => {
         name: dataset.product_type,
         transaction_qty: dataset.transaction_qty,
         price: dataset.unit_price,
+        value: dataset.unit_price * dataset.transaction_qty
       });
     }
     // Akhir Average Quantity And Value Per Product Type
@@ -541,15 +545,14 @@ document.querySelector("#filterButton").addEventListener("click", (event) => {
     avgQtySalesPerMonth += transactionQtyMonth.value;
   }
   document.querySelector("#avgQtySalesPerMonth").innerHTML = (
-    avgQtySalesPerMonth / 6
+    avgQtySalesPerMonth
   ).toFixed(2);
-  document.querySelector("#averageQtyPerTransaction").innerHTML = (
-    totalUnitPrice / totalTransactionQty
-  ).toFixed(2);
+  document.querySelector("#averageQtyPerTransaction").innerHTML =
+    avgQtyPerTransaction 
   document.querySelector("#averageSpendingPerTransaction").innerHTML =
-    "$" + averageSpendingPerTransaction.toFixed(2);
+    "$" + (totalSpending / newDatasets.length).toFixed(2);
   document.querySelector("#averageSpendingPerTransactionQty").innerHTML =
-    "$" + (averageSpendingPerTransaction / totalTransactionQty).toFixed(2);
+    "$" + (totalSpending / totalTransactionQty).toFixed(2);
   // Akhir Average Quantity Sales Per Month
 
   // Awal Average Quantity And Value Per Product Category
@@ -559,13 +562,13 @@ document.querySelector("#filterButton").addEventListener("click", (event) => {
   let totalPriceProductTable = 0;
   for (let i = 0; i < averageQtyAndVallueProductType.length; i++) {
     const productType = averageQtyAndVallueProductType[i];
-    totalPriceProductTable += productType.price;
+    totalPriceProductTable += productType.value;
     totalQtyProductTable += productType.transaction_qty;
     productTable.innerHTML += `
         <tr class="mid">
             <td>${productType.name}</td>
             <td>${productType.transaction_qty}</td>
-            <td>${(productType.transaction_qty * productType.price).toFixed(
+            <td>${(productType.value).toFixed(
               2
             )}</td>
         </tr>`;
