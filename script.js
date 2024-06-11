@@ -109,6 +109,7 @@ for (let i = 0; i < datasets.length; i++) {
             ...item,
             transaction_qty: item.transaction_qty + dataset.transaction_qty,
             price: item.price + dataset.unit_price,
+            value: item.value + dataset.unit_price*dataset.transaction_qty
           };
         }
         return item;
@@ -120,6 +121,7 @@ for (let i = 0; i < datasets.length; i++) {
       name: dataset.product_type,
       transaction_qty: dataset.transaction_qty,
       price: dataset.unit_price,
+      value: dataset.unit_price*dataset.transaction_qty
     });
   }
   // Akhir Average Quantity And Value Per Product Type
@@ -165,13 +167,13 @@ let totalQtyProductTable = 0;
 let totalPriceProductTable = 0;
 for (let i = 0; i < averageQtyAndVallueProductType.length; i++) {
   const productType = averageQtyAndVallueProductType[i];
-  totalPriceProductTable += productType.price;
+  totalPriceProductTable += productType.value;
   totalQtyProductTable += productType.transaction_qty;
   productTable.innerHTML += `
         <tr class="mid">
             <td>${productType.name}</td>
             <td>${productType.transaction_qty}</td>
-            <td>${(productType.transaction_qty * productType.price).toFixed(
+            <td>${(productType.value).toFixed(
               2
             )}</td>
         </tr>`;
@@ -452,6 +454,7 @@ document.querySelector("#filterButton").addEventListener("click", (event) => {
             ...item,
             transaction_qty: item.transaction_qty + dataset.transaction_qty,
             price: item.price + dataset.unit_price,
+            value:item.value+dataset.unit_price*dataset.transaction_qty
           };
         }
         return item;
@@ -462,6 +465,7 @@ document.querySelector("#filterButton").addEventListener("click", (event) => {
         name: dataset.store_location,
         transaction_qty: dataset.transaction_qty,
         price: dataset.unit_price,
+        value: dataset.unit_price*dataset.transaction_qty
       });
     }
     // Akhir Average Transaction Quantity And Value Per Store
@@ -529,7 +533,7 @@ document.querySelector("#filterButton").addEventListener("click", (event) => {
     totalUnitPrice += dataset.unit_price;
     // Akhir Average Quantity Per Transaction
   }
-
+  console.log(averageSpendingPerTransaction)
   // Awal Average Quantity Sales Per Month
   let avgQtySalesPerMonth = 0;
   for (let i = 0; i < transactionQtyMonths.length; i++) {
@@ -582,13 +586,13 @@ document.querySelector("#filterButton").addEventListener("click", (event) => {
   let totalPrice = 0;
   for (let i = 0; i < averageQtyAndVallueStores.length; i++) {
     const store = averageQtyAndVallueStores[i];
-    totalPrice += store.price;
+    totalPrice += store.value;
     totalQty += store.transaction_qty;
     storeTable.innerHTML += `
         <tr class="mid">
             <td>${store.name}</td>
             <td>${store.transaction_qty}</td>
-            <td>${(totalPrice * totalQty).toFixed(2)}</td>
+            <td>${(store.value).toFixed(2)}</td>
         </tr>`;
   }
   storeTable.innerHTML += `
