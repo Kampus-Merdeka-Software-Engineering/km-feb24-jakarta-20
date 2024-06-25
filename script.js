@@ -1,5 +1,6 @@
-import datasets from "./data.json" assert { type: "json" };
-
+fetch("data.json")
+  .then(response => response.json())
+  .then(datasets => {
 let transactionQtyMonths = [];
 let averageQtyAndVallueStores = [];
 let averageQtyAndVallueProductType = [];
@@ -624,3 +625,5 @@ document.querySelector("#filterButton").addEventListener("click", (event) => {
   pieChart.update();
 });
 // Akhir Filter
+})
+.catch(error => console.error("Error loading JSON data:", error));
